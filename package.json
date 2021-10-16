@@ -1,0 +1,25 @@
+{
+  "name": "shopnow",
+  "version": "1.0.0",
+  "description": "Ecommerce shopping platform using MERN stack",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kvlin/ShopNow.git"
+  },
+  "author": "Shouxuan (Kevin)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kvlin/ShopNow/issues"
+  },
+  "homepage": "https://github.com/kvlin/ShopNow#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.11",
+    "nodemon": "^2.0.13"
+  }
+}
