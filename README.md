@@ -1,2 +1,2 @@
 # ShopNow
-Ecommerce shopping platform using MERN stack and to be deployed to AWS
+Ecommerce shopping platform using MERN stack. To be deployed onto AWS cloud.
