@@ -1,4 +1,5 @@
 const ErrorHandler = require ('../utils/errorHandler');
+
 //express knows this middleware is for error handling because it has
  //* four parameters (err, req, res, next)
 module.exports = (err, req, res, next) => {
