@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const userSchman = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required:[true, 'Please enter your name'],
@@ -40,3 +40,5 @@ const userSchman = new mongoose.Schema({
     resetPasswordToken: String, // token for reset password
     resetPasswordExpire: Date,
 })
+
+module.exports = mongoose.model ("User", userSchema)
