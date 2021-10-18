@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -40,5 +41,18 @@ const userSchema = new mongoose.Schema({
     resetPasswordToken: String, // token for reset password
     resetPasswordExpire: Date,
 })
+
+// Password encryption
+// before SAVING (save), do something
+userSchema.pre('save', async function (next) {
+    // if password is not updated and changed (for existing user), 
+    // proceed the next middleware that is in pipeline.
+    // skips encrypting
+    if(!this.isModified('password')) {
+        next()
+    }
+
+    this.password = await bcrypt.hash(this.password, 10 )
+} )
 
 module.exports = mongoose.model ("User", userSchema)
