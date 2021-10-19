@@ -2,6 +2,7 @@ const User = require('../models/user');
 
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
+const sendToken = require('../utils/jwtToken');
 
 // Register a user: /api/v1/register
 exports.registerUser = catchAsyncErrors( async (req, res, next) => {
@@ -18,13 +19,14 @@ exports.registerUser = catchAsyncErrors( async (req, res, next) => {
         }
     })
 
-    const token = user.getJwtToken()
+    // const token = user.getJwtToken()
 
+    // res.status(201).json({ 
+    //     sucess: true,
+    //     token
+    //  })
 
-    res.status(201).json({ 
-        sucess: true,
-        token
-     })
+    sendToken(user, 200, res)
 })
 
 // Login user: /api/v1/login
@@ -51,10 +53,25 @@ exports.loginUser = catchAsyncErrors( async (req, res, next) => {
         return next(new ErrorHandler('Invalid Email or Password', 401))
     }
 
-    // if successfully logged in, generate token
-    const token = user.getJwtToken()
-    res.status(201).json({ 
+    // // if successfully logged in, generate token
+    // const token = user.getJwtToken()
+    // res.status(201).json({ 
+    //     sucess: true,
+    //     token
+    //  })
+
+    sendToken(user, 200, res)
+})
+
+// Logout user: /api/v1/logout
+exports.logoutUser = catchAsyncErrors( async (req, res, next) => {
+    res.cookie('token', null, {
+        expires: new Date (Date.now()),
+        httpOnly:true
+    }) 
+
+    res.status(200).json ({
         sucess: true,
-        token
-     })
+        message: 'Logged out'
+    })
 })
