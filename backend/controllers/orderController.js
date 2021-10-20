@@ -3,6 +3,7 @@ const Product = require('../models/product');
 
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
+const order = require('../models/order');
 
 // Create a new order: /api/v1/order/new
 exports.newOrder = catchAsyncErrors( async (req, res, next) => {
@@ -78,3 +79,37 @@ exports.allOrders = catchAsyncErrors( async (req, res, next) => {
         orders
     })
 })
+
+// Update / Process order : /api/v1/order/admin/order/:id, only admins can modify orders placed
+exports.updateOrder = catchAsyncErrors( async (req, res, next) => {
+    const order = await Order.findById(req.params.id)
+
+    // check if delivered
+    if(order.orderStatus === 'Delivered') {
+        return next(new ErrorHandler('This order has already been delivered'))
+    }
+
+    // update product stock
+    order.orderItems.forEach(async item => {
+        await updateStock(item.product, item.quantity)
+    })
+
+    // update order status
+    order.orderStatus = req.body.status
+    order.deliveredAt = Date.now()
+
+    await order.save({ validateBeforeSave: false })
+
+    res.status(200).json ({
+        success: true,
+        order
+    })
+})
+
+async function updateStock(id, quantity) {
+    const product = await Product.findById(id);
+    console.log(product)
+    product.stock  = product.stock - quantity
+
+    await product.save({ validateBeforeSave: false })
+}
