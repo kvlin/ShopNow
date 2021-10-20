@@ -21,7 +21,7 @@ class APIFeatures {
     filter () {
         const queryCopy = { ...this.queryStr };
         
-        console.log(queryCopy)
+        //console.log(queryCopy)
         
         // Removing fields from the query, as these are not defined fields
         // on the schema such as 'names', 'price' 'amount'

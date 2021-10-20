@@ -7,10 +7,10 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors')
 
 // Create new product: /api/v1/product/new
 exports.newProduct = catchAsyncErrors(async (req, res, next) => {
-    console.log(req)
-    console.log(req.body)
-    console.log("++++++++++++++")
-    console.log(req.user)
+  
+    //console.log(req.body)
+    //console.log("++++++++++++++")
+    //console.log(req.user)
     // save id as the user/creator of the product
     req.body.user = req.user.id;
 
