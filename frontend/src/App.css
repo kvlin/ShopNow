@@ -31,13 +31,20 @@ nav {
   padding: 1rem 1rem;
 }
 
+.nav-title {
+  color: #fff;
+  font-size: 3rem;
+  vertical-align: bottom;
+
+}
+
 #search_btn {
   background-color: #febd69;
 }
 
 .input-group {
-  width: 90%;
-  margin-right: 35%;
+  width: 80%;
+  margin: 0 auto;
 }
 
 #search_field {
